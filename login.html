@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Coffee Shop</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        
+    </style>
+</head>
+<body>
+    <!-- Header (same as main site) -->
+    <header>
+        <nav class="navbar section-content">
+            <a href="index.html" class="nav-logo">
+                <h2 class="logo-text">☕KiXi-FORT</h2>
+            </a>
+            <button id="menu-open-button" class="fas fa-bars"></button>
+            <ul class="nav-menu">
+                <button id="menu-close-button" class="fas fa-times"></button>
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#about" class="nav-link">About</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="login-container">
+            <div class="login-box">
+                <h2 class="login-title">Login to Your Account</h2>
+                <form class="login-form" id="loginForm">
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" class="form-input" placeholder="Enter your email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" class="form-input" placeholder="Enter your password" required>
+                    </div>
+                    <button type="submit" class="login-button">Login</button>
+                </form>
+                
+                <div class="login-links">
+                    <p><a href="#">Forgot Password?</a></p>
+                    <p>Don't have an account? <a href="#" id="registerLink">Register here</a></p>
+                </div>
+                
+                <div class="back-to-home">
+                    <a href="index.html">← Back to Home</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Mobile menu functionality
+        const menuOpenButton = document.querySelector("#menu-open-button");
+        const menuCloseButton = document.querySelector("#menu-close-button");
+        const navLinks = document.querySelectorAll(".nav-menu .nav-link");
+
+        if (menuOpenButton) {
+            menuOpenButton.addEventListener("click", () => {
+                document.body.classList.toggle("show-mobile-menu");
+            });
+        }
+
+        if (menuCloseButton) {
+            menuCloseButton.addEventListener("click", () => menuOpenButton.click());
+        }
+
+        navLinks.forEach(link => {
+            link.addEventListener("click", () => menuOpenButton.click());
+        });
+
+        // Login form submission
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            // Here you would typically send data to your backend
+            // Example fetch request:
+            /*
+            fetch('/api/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email, password })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Store token or user data
+                    localStorage.setItem('authToken', data.token);
+                    localStorage.setItem('user', JSON.stringify(data.user));
+                    // Redirect to order page
+                    window.location.href = 'order.html';
+                } else {
+                    alert('Login failed: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred during login');
+            });
+            */
+            
+            // For demo purposes, redirect to order page
+            localStorage.setItem('user', JSON.stringify({ email: email }));
+            window.location.href = 'order.html';
+        });
+
+        // Register link
+        document.getElementById('registerLink').addEventListener('click', function(e) {
+            e.preventDefault();
+            alert('Registration feature coming soon! For now, you can use any email/password to login.');
+        });
+    </script>
+</body>
+</html>
